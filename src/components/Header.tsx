@@ -13,9 +13,10 @@ interface HeaderProps{
     removeCart: () => void;
     isEmpty: boolean;
     cartTotal: number;
+    loadProducts: (type: string) => void;
 }
 
-function Header({cart, removeFromCart, modifyQuantity, removeCart, isEmpty, cartTotal}: HeaderProps){
+function Header({cart, removeFromCart, modifyQuantity, removeCart, isEmpty, cartTotal, loadProducts}: HeaderProps){
     return (
         <>
             <header className="header">
@@ -94,11 +95,11 @@ function Header({cart, removeFromCart, modifyQuantity, removeCart, isEmpty, cart
                 <div className="header-categories bg-dark py-3">
                     <div className="container-xl d-flex justify-content-center align-items-center gap-3 flex-wrap text-white">
                         <span className="fw-bold fs-4 me-3" style={{ color: '#E89301' }}>¡Lo mejor en tecnología!</span>
-                        <button className="btn btn-outline-light fs-5 px-4 py-2 fw-semibold border-2 btnMenu" style={{minWidth: '130px', color: "white"}}>Audífonos</button>
-                        <button className="btn btn-outline-light fs-5 px-4 py-2 fw-semibold border-2 btnMenu" style={{minWidth: '130px', color: "white"}}>Celulares</button>
-                        <button className="btn btn-outline-light fs-5 px-4 py-2 fw-semibold border-2 btnMenu" style={{minWidth: '130px', color: "white"}}>Laptops</button>
-                        <button className="btn btn-outline-light fs-5 px-4 py-2 fw-semibold border-2 btnMenu" style={{minWidth: '130px', color: "white"}}>Televisores</button>
-                        <button className="btn btn-outline-light fs-5 px-4 py-2 fw-semibold border-2 btnMenu" style={{minWidth: '130px', color: "white"}}>Cámaras</button>
+                        <button onClick={() =>loadProducts('headphone')} className="btn btn-outline-light fs-5 px-4 py-2 fw-semibold border-2 btnMenu" style={{minWidth: '130px', color: "white"}}>Audífonos</button>
+                        <button onClick={() =>loadProducts('cellphone')} className="btn btn-outline-light fs-5 px-4 py-2 fw-semibold border-2 btnMenu" style={{minWidth: '130px', color: "white"}}>Celulares</button>
+                        <button onClick={() =>loadProducts('laptop')} className="btn btn-outline-light fs-5 px-4 py-2 fw-semibold border-2 btnMenu" style={{minWidth: '130px', color: "white"}}>Laptops</button>
+                        <button onClick={() =>loadProducts('television')} className="btn btn-outline-light fs-5 px-4 py-2 fw-semibold border-2 btnMenu" style={{minWidth: '130px', color: "white"}}>Televisores</button>
+                        <button onClick={() =>loadProducts('camera')} className="btn btn-outline-light fs-5 px-4 py-2 fw-semibold border-2 btnMenu" style={{minWidth: '130px', color: "white"}}>Cámaras</button>
                     </div>
                 </div>
             </header>

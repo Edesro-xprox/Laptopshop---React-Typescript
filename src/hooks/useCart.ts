@@ -2,7 +2,7 @@ import { useState, useEffect , useMemo } from 'react'
 import type { ProductType } from "../types/ProductType.ts";
 import type { CartType, CartItemType } from "../types/CartType.ts";
 import { CART_SERVICE } from '../services/cart.service.ts';
-import { PRODUCTS_SERVICE } from '../services/laptop.service.ts';
+import { PRODUCTS_SERVICE } from '../services/product.service.ts';
 
 const useCart = () =>{
     type CartProductType = Pick<ProductType,'_id' | 'name' | 'image' | 'description' | 'price'> & { quantity: number };
@@ -10,8 +10,9 @@ const useCart = () =>{
     const [data, setData] = useState<ProductType[]>([]);
     const [cart, setCart] = useState<CartProductType[]>([]);
 
-    const loadProducts = async () =>{
-        const res = await PRODUCTS_SERVICE.getProducts();
+    const loadProducts = async (type: string) =>{
+        const res = await PRODUCTS_SERVICE.getProducts(type);
+        console.log(res.data);
         setData(res.data);
     }
 
@@ -39,7 +40,7 @@ const useCart = () =>{
     }
 
     useEffect(() =>{
-        loadProducts();
+        loadProducts('laptop');
     },[])
 
     useEffect(() =>{
@@ -109,7 +110,8 @@ const useCart = () =>{
         addToCart,
         setCart,
         isEmpty,
-        cartTotal
+        cartTotal,
+        loadProducts
     }
 }
 

@@ -7,7 +7,7 @@ const CART = {
 };
 
 const PRODUCTS = {
-    getProducts: "/data"
+    getProducts: (type: string) => `/data/${type}`
 }
 
 export { CART, PRODUCTS }
