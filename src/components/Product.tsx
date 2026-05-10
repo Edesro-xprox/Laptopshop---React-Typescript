@@ -7,14 +7,15 @@ interface ProductProps{
     price: number;
     description: string;
     addToCart: (product: ProductType) => void;
+    type: string;
 }
 
-function Product({product, image, name, price, description, addToCart}:ProductProps) {
+function Product({product, image, name, price, description, addToCart, type}:ProductProps) {
     return(
         <div className="col-md-6 col-lg-4 my-4">
             <div className="card h-100">
                 <img
-                src={`/img/${image}.jpg`}
+                src={`/img/${type}/${image}.jpg`}
                 alt="imagen laptop"
                 className="card-img-top"
                 style={{

@@ -34,6 +34,7 @@ function App() {
                 description={d.description}
                 product={d}
                 addToCart={addToCart}
+                type={d.type}
               />
             ))
           )}
