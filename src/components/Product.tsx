@@ -15,7 +15,7 @@ function Product({product, image, name, price, description, addToCart, type}:Pro
         <div className="col-md-6 col-lg-4 my-4">
             <div className="card h-100">
                 <img
-                src={`../assets/img/${type}/${image}.jpg`}
+                src={`/src/assets/img/${type}/${image}.jpg`}
                 alt="imagen laptop"
                 className="card-img-top"
                 style={{
