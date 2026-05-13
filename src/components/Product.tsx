@@ -11,11 +11,15 @@ interface ProductProps{
 }
 
 function Product({product, image, name, price, description, addToCart, type}:ProductProps) {
+    const getImageUrl = (type: string, image: string) => {
+        return new URL(`/src/assets/img/${type}/${image}.jpg`, import.meta.url).href;
+    };
+
     return(
         <div className="col-md-6 col-lg-4 my-4">
             <div className="card h-100">
                 <img
-                src={`/src/assets/img/${type}/${image}.jpg`}
+                src={getImageUrl(type, image)}
                 alt="imagen laptop"
                 className="card-img-top"
                 style={{
