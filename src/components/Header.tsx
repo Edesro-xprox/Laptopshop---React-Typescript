@@ -19,6 +19,10 @@ interface HeaderProps{
 }
 
 function Header({cart, removeFromCart, modifyQuantity, removeCart, isEmpty, cartTotal, loadProducts}: HeaderProps){
+    const getImageUrl = (type: string, image: string) => {
+        return new URL(`/src/assets/img/${type}/${image}.jpg`, import.meta.url).href;
+    };
+    
     return (
         <>
             <header className="header">
@@ -50,7 +54,7 @@ function Header({cart, removeFromCart, modifyQuantity, removeCart, isEmpty, cart
                                                 return (
                                                     <tr key={c._id}>
                                                         <td>
-                                                            <img className="img-fluid" src={`/src/assets/img/${c.image}.jpg`} alt="imagen guitarra" />
+                                                            <img className="img-fluid" src={getImageUrl(c.type, c.image)} alt="imagen guitarra" />
                                                         </td>
                                                         <td>{c.name}</td>
                                                         <td className="fw-bold">{c.price}</td>

@@ -27,6 +27,7 @@ const useCart = () =>{
                     _id: item._id,
                     name: item.name,
                     image: product.image,
+                    type: product.type,
                     description: product.description,
                     price: item.price,
                     quantity: item.quantity
