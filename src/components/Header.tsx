@@ -3,6 +3,8 @@
 //import { Fragment } from "react";
 import type { ProductType } from "../types/ProductType.ts";
 import type { CartItemType } from "../types/CartType.ts";
+import logoHeader from '../assets/img/header.png';
+import carrito from '../assets/img/carrito.png';
 
 type CartProductType = Pick<ProductType,'_id' | 'name' | 'image' | 'description' | 'price'> & Pick<CartItemType,'quantity'>;
 
@@ -24,12 +26,12 @@ function Header({cart, removeFromCart, modifyQuantity, removeCart, isEmpty, cart
                     <div className="row justify-content-center justify-content-md-between align-items-center">
                         <div className="col-8 col-md-3">
                             <a href="index.html">
-                                <img className="img-fluid" src="/src/assets/img/header.png" alt="imagen logo" />
+                                <img className="img-fluid" src={logoHeader} alt="imagen logo" />
                             </a>
                         </div>
                         <nav className="col-md-6 a mt-5 d-flex align-items-start justify-content-end">
                             <div className="carrito">
-                                <img className="img-fluid" src="/src/assets/img/carrito.png" alt="imagen carrito" />
+                                <img className="img-fluid" src={carrito} alt="imagen carrito" />
 
                                 <div id="carrito" className="bg-white p-3">
                                     {isEmpty ? <p className="text-center">El carrito esta vacio</p> : <></>}
