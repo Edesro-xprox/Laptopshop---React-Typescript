@@ -5,7 +5,7 @@ import './App.css'
 import { useCart } from './hooks/useCart.ts';
 
 function App() {
-  const { cart, removeCart, removeFromCart, modifyQuantity, data, addToCart, isEmpty, cartTotal, loadProducts }  = useCart();
+  const { cart, removeCart, removeFromCart, modifyQuantity, data, addToCart, isEmpty, cartTotal, loadProducts, loading }  = useCart();
 
   return (
     <>
@@ -22,7 +22,9 @@ function App() {
       <main className="mt-5 main-shop">
         <h2 className="text-center">Nuestra Colección</h2>
         <div className="row">
-          {data.length === 0 ? (
+          {loading && data.length === 0 ? (
+            <p className="text-center mt-5 fs-4">Cargando productos...</p>
+          ) : data.length === 0 ? (
             <p className="text-center mt-5 fs-4">No hay items disponibles</p>
           ) : (
             data.map(d => (

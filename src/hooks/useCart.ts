@@ -9,11 +9,16 @@ const useCart = () =>{
 
     const [data, setData] = useState<ProductType[]>([]);
     const [cart, setCart] = useState<CartProductType[]>([]);
+    const [loading, setLoading] = useState<boolean>(false);
 
     const loadProducts = async (type: string) =>{
-        const res = await PRODUCTS_SERVICE.getProducts(type);
-        console.log(res.data);
-        setData(res.data);
+        setLoading(true);
+        try {
+            const res = await PRODUCTS_SERVICE.getProducts(type);
+            setData(res.data);
+        } finally {
+            setLoading(false);
+        }
     }
 
     const loadCart = async () => {
@@ -112,7 +117,8 @@ const useCart = () =>{
         setCart,
         isEmpty,
         cartTotal,
-        loadProducts
+        loadProducts,
+        loading
     }
 }
 
