@@ -18,16 +18,16 @@ function App() {
         loadProducts={loadProducts}
       />
       {/* <Navbar/> */}
-      <main className="mt-5 main-shop">
+      <main className="mt-5 main-shop p-2">
         <h2 className="text-center">Nuestra Colección</h2>
         <div className="row">
           {loading ? (
-            <p className="text-center mt-5 fs-4">No hay items disponibles</p>
+            <p className="text-center mt-5 fs-4">
+              Cargando productos...
+            </p>
           ) :
           data.length == 0 ?
-          <p className="text-center mt-5 fs-4">
-            Cargando productos...
-          </p>
+          (<p className="text-center mt-5 fs-4">No hay items disponibles</p>)
            : (
             data.map(d => (
               <Product

@@ -16,7 +16,7 @@ function Product({product, image, name, price, description, addToCart, type}:Pro
     };
 
     return(
-        <div className="col-md-6 col-lg-4 my-4">
+        <div className="col-md-6 col-lg-4 my-4 text-center">
             <div className="card h-100">
                 <img
                 src={getImageUrl(type, image)}
