@@ -2,6 +2,7 @@ import Header from './components/Header.tsx'
 // import Navbar from './components/Navbar.tsx'
 import Product from './components/Product.tsx'
 import { useCart } from './hooks/useCart.ts';
+import './App.css';
 
 function App() {
   const { cart, removeCart, removeFromCart, modifyQuantity, data, addToCart, isEmpty, cartTotal, loadProducts, loading }  = useCart();
@@ -22,13 +23,14 @@ function App() {
         <h2 className="text-center">Nuestra Colección</h2>
         <div className="row">
           {loading ? (
-            <p className="text-center mt-5 fs-4">
+            <div className="d-flex justify-content-center text-center mt-5 fs-4">
+            <div className='spin-loading'></div>
               Cargando productos...
-            </p>
+          </div>
           ) :
           data.length == 0 ?
           (<p className="text-center mt-5 fs-4">No hay items disponibles</p>)
-           : (
+          : (
             data.map(d => (
               <Product
                 price={d.price}
