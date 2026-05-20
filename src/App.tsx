@@ -1,7 +1,6 @@
 import Header from './components/Header.tsx'
 // import Navbar from './components/Navbar.tsx'
 import Product from './components/Product.tsx'
-import './App.css'
 import { useCart } from './hooks/useCart.ts';
 
 function App() {
@@ -23,10 +22,12 @@ function App() {
         <h2 className="text-center">Nuestra Colección</h2>
         <div className="row">
           {loading ? (
-            <p>Cargando productos...</p>
+            <p className="text-center mt-5 fs-4">No hay items disponibles</p>
           ) :
           data.length == 0 ?
-           <p className="text-center mt-5 fs-4">No hay items disponibles</p>
+          <p className="text-center mt-5 fs-4">
+            Cargando productos...
+          </p>
            : (
             data.map(d => (
               <Product
