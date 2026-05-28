@@ -1,15 +1,24 @@
 import { useState, useEffect , useMemo } from 'react'
 import type { ProductType } from "../types/ProductType.ts";
-import type { CartType, CartItemType } from "../types/CartType.ts";
+import type { CartType, CartItemType, CartProductType } from "../types/CartType.ts";
 import { CART_SERVICE } from '../services/cart.service.ts';
 import { PRODUCTS_SERVICE } from '../services/product.service.ts';
 
-const useCart = () =>{
-    type CartProductType = Pick<ProductType,'_id' | 'name' | 'image' | 'description' | 'price'> & { quantity: number };
-
+const useCart = () =>{    
+    const [all, setAll] = useState<ProductType[]>([]);
     const [data, setData] = useState<ProductType[]>([]);
     const [cart, setCart] = useState<CartProductType[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
+    const [select, setSelect] = useState('laptop');
+
+    const handleSelect = (type: string) =>{
+        setSelect(type);
+    }
+
+    const loadAllProducts = async () =>{
+        const res = await PRODUCTS_SERVICE.getAllProducts();
+        setAll(res.data);
+    }
 
     const loadProducts = async (type: string) =>{
         setLoading(true);
@@ -26,14 +35,13 @@ const useCart = () =>{
         // res.data debe ser un CartType
         const cartData: CartType = res.data[0];
         const cartWithProductData: CartProductType[] = cartData?.items?.map((item: CartItemType) => {
-            const product = data.find(d => d._id === item._id);
+            const product = all.find(d => d._id === item._id);
             if (product) {
                 return {
                     _id: item._id,
                     name: item.name,
                     image: product.image,
                     type: product.type,
-                    description: product.description,
                     price: item.price,
                     quantity: item.quantity
                 };
@@ -46,6 +54,7 @@ const useCart = () =>{
     }
 
     useEffect(() =>{
+        loadAllProducts();
         loadProducts('laptop');
     },[])
 
@@ -118,7 +127,9 @@ const useCart = () =>{
         isEmpty,
         cartTotal,
         loadProducts,
-        loading
+        loading,
+        select,
+        handleSelect
     }
 }
 

@@ -5,7 +5,7 @@ import { useCart } from './hooks/useCart.ts';
 import './App.css';
 
 function App() {
-  const { cart, removeCart, removeFromCart, modifyQuantity, data, addToCart, isEmpty, cartTotal, loadProducts, loading }  = useCart();
+  const { cart, removeCart, removeFromCart, modifyQuantity, data, addToCart, isEmpty, cartTotal, loadProducts, loading, select, handleSelect }  = useCart();
 
   return (
     <>
@@ -17,6 +17,8 @@ function App() {
         isEmpty={isEmpty} 
         cartTotal={cartTotal}
         loadProducts={loadProducts}
+        select={select}
+        handleSelect={handleSelect}
       />
       {/* <Navbar/> */}
       <main className="mt-5 main-shop p-2">

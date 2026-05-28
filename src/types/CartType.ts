@@ -1,3 +1,4 @@
+import type { ProductType } from "./ProductType";
 
 type CartItemType = {
     _id: string;
@@ -13,4 +14,6 @@ type CartType = {
     total: number;
 };
 
-export type { CartType, CartItemType };
+type CartProductType = Pick<ProductType,'_id' | 'name' | 'image' | 'price'> & { quantity: number };
+
+export type { CartType, CartItemType, CartProductType };

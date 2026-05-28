@@ -1,24 +1,12 @@
 //Formas de usar fragments en React
 // import React from "react";
 //import { Fragment } from "react";
-import type { ProductType } from "../types/ProductType.ts";
-import type { CartItemType } from "../types/CartType.ts";
 import logoHeader from '../assets/img/header.png';
 import carrito from '../assets/img/carrito.png';
+import type { HeaderProps } from "../types/HeaderType.ts";
 
-type CartProductType = Pick<ProductType,'_id' | 'name' | 'image' | 'description' | 'price'> & Pick<CartItemType,'quantity'>;
 
-interface HeaderProps{
-    cart: CartProductType[];
-    removeFromCart: (id: string) => void;
-    modifyQuantity: (id: string, value: number) => void;
-    removeCart: () => void;
-    isEmpty: boolean;
-    cartTotal: number;
-    loadProducts: (type: string) => void;
-}
-
-function Header({cart, removeFromCart, modifyQuantity, removeCart, isEmpty, cartTotal, loadProducts}: HeaderProps){
+function Header({cart, removeFromCart, modifyQuantity, removeCart, isEmpty, cartTotal, loadProducts, select, handleSelect}: HeaderProps){
     const getImageUrl = (type: string, image: string) => {
         return new URL(`/src/assets/img/${type}/${image}.jpg`, import.meta.url).href;
     };
@@ -101,11 +89,11 @@ function Header({cart, removeFromCart, modifyQuantity, removeCart, isEmpty, cart
                 <div className="header-categories bg-dark py-3">
                     <div className="container-xl d-flex justify-content-center align-items-center gap-3 flex-wrap text-white">
                         <span className="fw-bold fs-4 me-3" style={{ color: '#E89301' }}>¡Lo mejor en tecnología!</span>
-                        <button onClick={() =>loadProducts('headphone')} className="btn btn-outline-light fs-5 px-4 py-2 fw-semibold border-2 btnMenu" style={{minWidth: '130px', color: "white"}}>Audífonos</button>
-                        <button onClick={() =>loadProducts('cellphone')} className="btn btn-outline-light fs-5 px-4 py-2 fw-semibold border-2 btnMenu" style={{minWidth: '130px', color: "white"}}>Celulares</button>
-                        <button onClick={() =>loadProducts('laptop')} className="btn btn-outline-light fs-5 px-4 py-2 fw-semibold border-2 btnMenu" style={{minWidth: '130px', color: "white"}}>Laptops</button>
-                        <button onClick={() =>loadProducts('television')} className="btn btn-outline-light fs-5 px-4 py-2 fw-semibold border-2 btnMenu" style={{minWidth: '130px', color: "white"}}>Televisores</button>
-                        <button onClick={() =>loadProducts('camera')} className="btn btn-outline-light fs-5 px-4 py-2 fw-semibold border-2 btnMenu" style={{minWidth: '130px', color: "white"}}>Cámaras</button>
+                        <button onClick={() =>{loadProducts('headphone'); handleSelect('headphone');}} className="btn btn-outline-light fs-5 px-4 py-2 fw-semibold border-2" style={{minWidth: '130px', color: select == 'headphone' ? '#E89301' : "white"}}>Audífonos</button>
+                        <button onClick={() =>{loadProducts('cellphone'); handleSelect('cellphone');}} className="btn btn-outline-light fs-5 px-4 py-2 fw-semibold border-2" style={{minWidth: '130px', color: select == 'cellphone' ? '#E89301' : "white"}}>Celulares</button>
+                        <button onClick={() =>{loadProducts('laptop'); handleSelect('laptop');}} className="btn btn-outline-light fs-5 px-4 py-2 fw-semibold border-2" style={{minWidth: '130px', color: select == 'laptop' ? '#E89301' : "white"}}>Laptops</button>
+                        <button onClick={() =>{loadProducts('television'); handleSelect('television');}} className="btn btn-outline-light fs-5 px-4 py-2 fw-semibold border-2" style={{minWidth: '130px', color: select == 'television' ? '#E89301' : "white"}}>Televisores</button>
+                        <button onClick={() =>{loadProducts('camera'); handleSelect('camera');}} className="btn btn-outline-light fs-5 px-4 py-2 fw-semibold border-2" style={{minWidth: '130px', color: select == 'camera' ? '#E89301' : "white"}}>Cámaras</button>
                     </div>
                 </div>
             </header>
