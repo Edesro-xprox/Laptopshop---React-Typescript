@@ -49,7 +49,6 @@ const useCart = () =>{
                 return null;
             }
         }).filter((c: CartProductType | null) => c != null) as CartProductType[] || [];
-        console.log(cartWithProductData);
         setCart(cartWithProductData);
     }
 
@@ -108,7 +107,7 @@ const useCart = () =>{
     // const cartTotal = useMemo(() => cart.reduce((total: number,c: CartType) => total += c.quantity * c.price,0),[cart]);
     const cartTotal = useMemo(() => {
         return cart.reduce((total: number, c: CartProductType) => {
-            const product = data.find(d => d._id == c._id);
+            const product = all.find(d => d._id == c._id);
             if (product) {
                 return total + c.quantity * product.price;
             }
