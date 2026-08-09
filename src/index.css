@@ -614,6 +614,10 @@ button:not(:disabled),
   margin-bottom: 1.5rem !important;
 }
 
+.mt-2{
+  margin-top: 0.5rem !important;
+}
+
 .mt-3 {
   margin-top: 1rem !important;
 }
@@ -695,6 +699,11 @@ button:not(:disabled),
 .text-primary {
   --bs-text-opacity: 1;
   color: rgba(var(--bs-primary-rgb), var(--bs-text-opacity)) !important;
+}
+
+.text-secondary {
+  --bs-text-opacity: 1;
+  color: rgba(var(--bs-secondary-rgb), var(--bs-text-opacity)) !important;
 }
 
 .text-black {

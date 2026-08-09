@@ -44,7 +44,7 @@ function Product({product, image, name, price, description, addToCart, type}:Pro
 
                     <button
                         type="button"
-                        className="btn btn-dark w-100 mt-auto"
+                        className="btn btn-dark mt-auto  btnBuyProduct"
                         onClick={() => addToCart(product)}
                     >
                         Agregar al Carrito

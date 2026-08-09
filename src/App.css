@@ -1,3 +1,36 @@
+.d-flex{
+  display: flex;
+}
+
+.justify-content-center{
+  justify-content: center;
+}
+
+.align-items-center{
+  align-items: center;
+}
+
+.min-vh-100{
+  min-height: 100vh; /* Estilo css para indicar que el alto mínimo sea el alto de la pantalla del usuario */
+}
+
+.form-control {
+    border-radius: 10px;
+    border: 1px solid #ced4da;
+    padding: 10px 14px;
+    transition: all .2s ease;
+}
+
+.form-control:focus {
+    border-color: #6C757D;
+    box-shadow: 0 0 0 .2rem rgba(108,117,125,.25);
+}
+
+.block{
+  display: block;
+  width: 100%;
+}
+
 .spin-loading {
   border: 4px solid rgba(0, 0, 0, 0.1);
   width: 2rem;
@@ -16,4 +49,18 @@
   100% {
     transform: rotate(360deg);
   }
+}
+
+.form-question{
+  margin-top: 10px;
+  text-align: center;
+}
+
+.question:hover{
+  cursor: pointer;
+  color: #E08E01;
+}
+
+.btnBuyProduct{
+  width: 70%;
 }

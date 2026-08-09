@@ -2,38 +2,39 @@ import { CART } from '../api/endpoints.ts';
 import { api } from '../api/api.ts';
 import type { CartType, CartItemType } from '../types/CartType';
 
-const FIXED_CART_ID = 'cart_001';
-const FIXED_USER_ID = 'user_123';
-
 const CART_SERVICE = {
     getCart: async () => {
         const res = await api.get(CART.getCart);
         return res;
     },
-    addCart: async (items: CartItemType[], total: number) => {
+    findCartByUserId: async (userId: string) => {
+        const res = await api.get(CART.findCartByUserId(userId));
+        return res;
+    },
+    addCart: async (cartId: string, userId: string, items: CartItemType[], total: number) => {
         // Enviar la estructura completa del carrito
         const cart: CartType = {
-            _id: FIXED_CART_ID,
-            userId: FIXED_USER_ID,
+            _id: cartId,
+            userId,
             items,
             total
         };
         const res = await api.post(CART.addCart(), cart);
         return res;
     },
-    deleteCart: async (id: string) => {
+    deleteCart: async (cartId: string, userId: string, id: string) => {
         // Eliminar un item del carrito (por id de producto)
-        const res = await api.delete(CART.deleteCart(id), { data: { cartId: FIXED_CART_ID, userId: FIXED_USER_ID } });
+        const res = await api.delete(CART.deleteCart(id), { data: { cartId: cartId, userId: userId } });
         return res;
     },
-    updateQuantityCart: async (id: string, value: number) => {
+    updateQuantityCart: async (cartId: string, userId: string, id: string, value: number) => {
         // Actualizar cantidad de un item
-        const res = await api.put(CART.updateQuantityCart(id, value), { cartId: FIXED_CART_ID, userId: FIXED_USER_ID });
+        const res = await api.put(CART.updateQuantityCart(id, value), { cartId: cartId, userId: userId });
         return res;
     },
-    clearCart: async () => {
+    clearCart: async (cartId: string, userId: string) => {
         // Limpiar el carrito completo
-        const res = await api.delete(CART.clearCart, { data: { cartId: FIXED_CART_ID, userId: FIXED_USER_ID } });
+        const res = await api.delete(CART.clearCart, { data: { cartId: cartId, userId: userId } });
         return res;
     }
 };

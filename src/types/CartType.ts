@@ -16,4 +16,9 @@ type CartType = {
 
 type CartProductType = Pick<ProductType,'_id' | 'name' | 'image' | 'price'> & { quantity: number };
 
-export type { CartType, CartItemType, CartProductType };
+interface CartContextType {
+    cartId: string;
+    getCartId: (id: string) => void;
+}
+
+export type { CartType, CartItemType, CartProductType, CartContextType };

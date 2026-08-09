@@ -3,6 +3,8 @@ import type { ProductType } from "../types/ProductType.ts";
 import type { CartType, CartItemType, CartProductType } from "../types/CartType.ts";
 import { CART_SERVICE } from '../services/cart.service.ts';
 import { PRODUCTS_SERVICE } from '../services/product.service.ts';
+import { useAuth } from '../context/AuthContext.tsx';
+import { useCartInfo } from '../context/CartContext.tsx';
 
 const useCart = () =>{    
     const [all, setAll] = useState<ProductType[]>([]);
@@ -10,6 +12,8 @@ const useCart = () =>{
     const [cart, setCart] = useState<CartProductType[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [select, setSelect] = useState('laptop');
+    const { user } = useAuth();
+    const { cartId } = useCartInfo();
 
     const handleSelect = (type: string) =>{
         setSelect(type);
@@ -33,7 +37,7 @@ const useCart = () =>{
     const loadCart = async () => {
         const res = await CART_SERVICE.getCart();
         // res.data debe ser un CartType
-        const cartData: CartType = res.data[0];
+        const cartData: CartType = res.data.filter((c: CartType) => c.userId == user?._id)[0];
         const cartWithProductData: CartProductType[] = cartData?.items?.map((item: CartItemType) => {
             const product = all.find(d => d._id === item._id);
             if (product) {
@@ -79,26 +83,41 @@ const useCart = () =>{
             quantity: c.quantity
         }));
 
+        // Calcular el total del carrito
         const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-        const res = await CART_SERVICE.addCart(items, total);
+
+        // Generar el nuevo id del carrito
+        const carts = await CART_SERVICE.getCart();
+        debugger
+        let cartIdCurrent = null, lastId = null;
+
+        if(carts.data.length > 0 && !Boolean(cartIdCurrent)){
+            lastId = carts.data.map((c: CartType) => c._id).at(-1);
+            cartIdCurrent = `cart_${String(Number(lastId.split('_')[1]) + 1).padStart(3, '0')}`;
+        }else{
+            cartIdCurrent = 'cart_001';
+        }
+
+
+        const res = await CART_SERVICE.addCart(cartId || cartIdCurrent, user?._id!, items, total);
         loadCart();
         return res;
     }
 
     const removeFromCart = async (id: string) => {
-        const res = await CART_SERVICE.deleteCart(id);
+        const res = await CART_SERVICE.deleteCart(cartId, user?._id!, id);
         loadCart();
         return res;
     }
 
     const modifyQuantity = async (id: string, value: number) => {
-        const res = await CART_SERVICE.updateQuantityCart(id, value);
+        const res = await CART_SERVICE.updateQuantityCart(cartId, user?._id!, id, value);
         loadCart();
         return res;
     }
 
     const removeCart = async () => {
-        const res = await CART_SERVICE.clearCart();
+        const res = await CART_SERVICE.clearCart(cartId, user?._id!);
         loadCart();
         return res;
     }
