@@ -88,7 +88,7 @@ const useCart = () =>{
 
         // Generar el nuevo id del carrito
         const carts = await CART_SERVICE.getCart();
-        debugger
+        
         let cartIdCurrent = null, lastId = null;
 
         if(carts.data.length > 0 && !Boolean(cartIdCurrent)){
@@ -97,7 +97,6 @@ const useCart = () =>{
         }else{
             cartIdCurrent = 'cart_001';
         }
-
 
         const res = await CART_SERVICE.addCart(cartId || cartIdCurrent, user?._id!, items, total);
         loadCart();

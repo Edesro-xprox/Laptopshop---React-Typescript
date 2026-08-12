@@ -5,7 +5,6 @@ const AUTH_SERVICE = {
     getByUserName: async (user: string, password: string) =>{
         try{
             const res = await api.post(AUTH.getByUserName(), { user: user, password: password });
-            console.log(res);
             return res;
         } catch(error){
             throw error;

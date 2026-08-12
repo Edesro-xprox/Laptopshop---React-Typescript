@@ -4,7 +4,8 @@ import type { CartContextType } from '../types/CartType.ts';
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
-    const [cartId, setCartId] = useState<string>('');
+    const cartCurrent = JSON.stringify(localStorage.getItem('cartId'));
+    const [cartId, setCartId] = useState<string>(cartCurrent);
 
     const getCartId = (id: string) => {
         setCartId(id);

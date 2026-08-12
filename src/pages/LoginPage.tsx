@@ -22,11 +22,13 @@ const LoginPage = () => {
     try{
       const resL = await AUTH_SERVICE.getByUserName(username, password);
       if(resL){
+        localStorage.setItem('user', JSON.stringify(resL.data.userFound));
         localStorage.setItem('token', resL.data.token);
         login({ ...resL.data.userFound });
         
         const resC = await CART_SERVICE.findCartByUserId(resL.data.userFound._id);
         if(resC){
+          localStorage.setItem('cartId', resC?.data?._id);
           getCartId(resC?.data?._id || '');
         }
 

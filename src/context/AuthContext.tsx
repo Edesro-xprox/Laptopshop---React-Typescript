@@ -7,7 +7,10 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 //Crear proveedor de contexto
 //Ejemplo de tipo con objeto: ({ name, age }: { name: string, age: number })
 const AuthProvider = ({ children }: { children: ReactNode }) =>{
-    const [user, setUser] = useState<UserProfile | null>(null);
+    const userCurrent: any = JSON.parse(localStorage.getItem('user')!);
+    const userFormat = { _id: userCurrent?._id, username: userCurrent?.user  }
+    
+    const [user, setUser] = useState<UserProfile | null>(userFormat);
 
     const login = (userData: UserProfile) =>{
         setUser(userData);
@@ -28,7 +31,6 @@ const AuthProvider = ({ children }: { children: ReactNode }) =>{
 //Crear hook para usar el contexto
 const useAuth = () =>{
     const context = useContext(AuthContext);
-    console.log(context);
     if(!context){
         throw new Error('useAuth debe ser usado dentro de un AuthProvider');
     }

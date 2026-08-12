@@ -4,9 +4,12 @@
 import logoHeader from '../assets/img/header.png';
 import carrito from '../assets/img/carrito.png';
 import type { HeaderProps } from "../types/HeaderType.ts";
+// import { useAuth } from '../context/AuthContext.tsx';
 
 
 function Header({cart, removeFromCart, modifyQuantity, removeCart, isEmpty, cartTotal, loadProducts, select, handleSelect}: HeaderProps){
+    // const { logout } = useAuth();
+    
     const getImageUrl = (type: string, image: string) => {
         return new URL(`/src/assets/img/${type}/${image}.jpg`, import.meta.url).href;
     };
@@ -21,10 +24,9 @@ function Header({cart, removeFromCart, modifyQuantity, removeCart, isEmpty, cart
                                 <img className="img-fluid" src={logoHeader} alt="imagen logo" />
                             </a>
                         </div>
-                        <nav className="col-md-6 a mt-5 d-flex align-items-start justify-content-end">
+                        <nav className="col-md-6 d-flex align-items-start justify-content-end">
                             <div className="carrito">
                                 <img className="img-fluid" src={carrito} alt="imagen carrito" />
-
                                 <div id="carrito" className="bg-white p-3">
                                     {isEmpty ? <p className="text-center">El carrito esta vacio</p> : <></>}
                                     <table className="w-100 table">
