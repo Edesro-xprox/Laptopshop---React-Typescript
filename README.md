@@ -27,7 +27,7 @@ Aplicación web desarrollada con React, TypeScript y Vite para la gestión y com
 - **src/services/**: Lógica para interactuar con la API (cart.service.ts, laptop.service.ts).
 - **src/hooks/**: Hooks personalizados (useCart).
 - **src/types/**: Definición de tipos TypeScript.
-- **src/api/**: Configuración de endpoints y utilidades para llamadas HTTP.
+- **src/api/**: Configuración de endpoints y utilidades para llamadas HTTP. 
 
 ## Cómo ejecutar
 
@@ -35,6 +35,12 @@ Aplicación web desarrollada con React, TypeScript y Vite para la gestión y com
 2. Crea un archivo .env para configurar las variables de entorno, usa como ejemplo el archivo .env.example
 2. Ejecuta `npm install` para instalar dependencias.
 3. Ejecuta `npm run dev` y abre el navegador en la URL indicada.
+
+## Accesos
+
+Credenciales de acceso a la aplicación:
+- usuario: admin
+- contraseña: 456
 
 ## Autor
 - Edson Espinoza
