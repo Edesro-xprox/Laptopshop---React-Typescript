@@ -4,6 +4,7 @@ import { AUTH_SERVICE } from '../services/auth.service';
 import { CART_SERVICE } from '../services/cart.service';
 import { useAuth } from '../context/AuthContext';
 import { useCartInfo } from '../context/CartContext';
+import LoadingOverlay from '../components/LoadingOverlay';
 // import AppToast from '../components/DevExtremme/Toast';
 // import type { ToastRef } from '../interfaces';
 // import { useAuth } from '../context/AuthContext';
@@ -11,6 +12,7 @@ import { useCartInfo } from '../context/CartContext';
 const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuth();
   const { getCartId } = useCartInfo();
@@ -19,6 +21,7 @@ const LoginPage = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     try{
       const resL = await AUTH_SERVICE.getByUserName(username, password);
       if(resL){
@@ -33,8 +36,10 @@ const LoginPage = () => {
         }
 
         navigate('/shopPage');
+        setLoading(false);
       }
     }catch(e: any){
+      setLoading(false);
       console.error(e);
       // toastRef.current?.show(e.response.data.message, 'warning');
     }
@@ -49,6 +54,7 @@ const LoginPage = () => {
       className="d-flex justify-content-center align-items-center min-vh-100"
       style={{ backgroundColor: '#f1f3f5' }}
     >
+      <LoadingOverlay open={loading}></LoadingOverlay>
       <form
         onSubmit={handleSubmit}
         className="p-4 block"

@@ -1,14 +1,17 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AUTH_SERVICE } from '../services/auth.service';
+import LoadingOverlay from '../components/LoadingOverlay';
 
 const RoutePage = () =>{
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     const handleNewRegister = async () =>{
+        setLoading(true);
         try{
             if(!Boolean(username) && !Boolean(password) && !Boolean(confirmPassword)){
                 console.error('Debe completar todos los campos');
@@ -22,9 +25,11 @@ const RoutePage = () =>{
 
             const res = await AUTH_SERVICE.postNewUser(username, password);
             if(res){
+                setLoading(false);
                 navigate('/loginPage');
             }
         }catch(e){
+            setLoading(false);
             console.error('Error during registration:', e);
         }
     }
@@ -38,6 +43,7 @@ const RoutePage = () =>{
             className="d-flex justify-content-center align-items-center min-vh-100"
             style={{ backgroundColor: '#f1f3f5' }}
         >
+            <LoadingOverlay open={loading}></LoadingOverlay>
             <div
                 className="p-4 block"
                 style={{
