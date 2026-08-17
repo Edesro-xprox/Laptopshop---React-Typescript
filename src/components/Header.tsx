@@ -1,14 +1,24 @@
 //Formas de usar fragments en React
 // import React from "react";
 //import { Fragment } from "react";
-import logoHeader from '../assets/img/header.png';
+import logoHeader from '../assets/img/nextShop.png';
+import logoutHeader from '../assets/img/logout.png';
 import carrito from '../assets/img/carrito.png';
 import type { HeaderProps } from "../types/HeaderType.ts";
-// import { useAuth } from '../context/AuthContext.tsx';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 
 function Header({cart, removeFromCart, modifyQuantity, removeCart, isEmpty, cartTotal, loadProducts, select, handleSelect}: HeaderProps){
-    // const { logout } = useAuth();
+    const navigate = useNavigate();
+    const { logout } = useAuth();
+
+    const handleLogout = () => {
+        logout();
+        localStorage.removeItem('user');
+        localStorage.removeItem('cartId');
+        navigate('/loginPage');
+    };
     
     const getImageUrl = (type: string, image: string) => {
         return new URL(`/src/assets/img/${type}/${image}.jpg`, import.meta.url).href;
@@ -20,11 +30,11 @@ function Header({cart, removeFromCart, modifyQuantity, removeCart, isEmpty, cart
                 <div className="container-xl">
                     <div className="row justify-content-center justify-content-md-between align-items-center">
                         <div className="col-8 col-md-3">
-                            <a href="index.html">
+                            <a href="#">
                                 <img className="img-fluid" src={logoHeader} alt="imagen logo" />
                             </a>
                         </div>
-                        <nav className="col-md-6 d-flex align-items-start justify-content-end">
+                        <nav className="col-md-6 d-flex align-items-center justify-content-end gap-3">
                             <div className="carrito">
                                 <img className="img-fluid" src={carrito} alt="imagen carrito" />
                                 <div id="carrito" className="bg-white p-3">
@@ -84,6 +94,14 @@ function Header({cart, removeFromCart, modifyQuantity, removeCart, isEmpty, cart
                                     <button onClick={() => removeCart()} className="btn btn-dark w-100 mt-3 p-2">Vaciar Carrito</button>
                                 </div>
                             </div>
+                            <button
+                                type="button"
+                                onClick={handleLogout}
+                                className="btn btn-warning rounded-pill px-4 py-2 fw-bold shadow-sm border-0 text-white d-flex align-items-center gap-2"
+                                style={{ letterSpacing: '0.5px' }} title='Salir'
+                            >
+                                <img src={logoutHeader} style={{ height: '35px', width: '35px' }}></img>
+                            </button>
                         </nav>
                     </div>
                 </div>

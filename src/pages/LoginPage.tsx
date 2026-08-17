@@ -69,7 +69,9 @@ const LoginPage = () => {
         }}
       >
         <div className="text-center fw-bold fs-3">
-          <span className='text-primary'>&lt;/&gt;</span> <span className="text-white">Dev</span> <span className="text-primary">Espinoza</span>
+          {/* <span className='text-primary'>&lt;/&gt;</span>  */}
+          <span className="text-white">Next</span>
+          <span className="text-primary">Shop</span>
         </div>
 
         <div className="mt-4">
