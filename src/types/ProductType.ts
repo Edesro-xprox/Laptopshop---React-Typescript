@@ -7,6 +7,17 @@ type ProductType = {
     type: string;
 }
 
+interface ProductProps{
+    product: ProductType;
+    image: string;
+    name: string;
+    price: number;
+    description: string;
+    addToCart: (product: ProductType) => void;
+    type: string;
+}
+
 export type {
-    ProductType
+    ProductType,
+    ProductProps
 };

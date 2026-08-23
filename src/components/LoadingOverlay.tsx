@@ -1,4 +1,6 @@
-function LoadingOverlay({ open }: { open: boolean }) {
+import type { LoadingProps } from '../types/LoadingType.ts';
+
+function LoadingOverlay({ open }: LoadingProps) {
     const loadingOverlay: any = {
         position: 'fixed',
         inset: 0,

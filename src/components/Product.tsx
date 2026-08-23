@@ -1,14 +1,4 @@
-import type { ProductType } from "../types/ProductType.ts";
-
-interface ProductProps{
-    product: ProductType;
-    image: string;
-    name: string;
-    price: number;
-    description: string;
-    addToCart: (product: ProductType) => void;
-    type: string;
-}
+import type { ProductProps } from "../types/ProductType.ts";
 
 function Product({product, image, name, price, description, addToCart, type}:ProductProps) {
     const getImageUrl = (type: string, image: string) => {
