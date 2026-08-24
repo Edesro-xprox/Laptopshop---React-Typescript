@@ -5,9 +5,7 @@ import { CART_SERVICE } from '../services/cart.service';
 import { useAuth } from '../context/AuthContext';
 import { useCartInfo } from '../context/CartContext';
 import LoadingOverlay from '../components/LoadingOverlay';
-// import AppToast from '../components/DevExtremme/Toast';
-// import type { ToastRef } from '../interfaces';
-// import { useAuth } from '../context/AuthContext';
+import { toast } from 'react-toastify';
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
@@ -40,8 +38,8 @@ const LoginPage = () => {
       }
     }catch(e: any){
       setLoading(false);
+      toast.warning("Credenciales incorrectas");
       console.error(e);
-      // toastRef.current?.show(e.response.data.message, 'warning');
     }
   }
 

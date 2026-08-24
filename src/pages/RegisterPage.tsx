@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AUTH_SERVICE } from '../services/auth.service';
 import LoadingOverlay from '../components/LoadingOverlay';
+import { toast } from 'react-toastify';
 
 const RoutePage = () =>{
     const [username, setUsername] = useState('');
@@ -14,11 +15,13 @@ const RoutePage = () =>{
         setLoading(true);
         try{
             if(!Boolean(username) && !Boolean(password) && !Boolean(confirmPassword)){
+                toast.warning('Debe completar todos los campos');
                 console.error('Debe completar todos los campos');
                 return;
             }
 
             if(confirmPassword !== password){
+                toast.warning('Las contraseñas no coinciden');
                 console.error('Las contraseñas no coinciden');
                 return;
             }
@@ -26,6 +29,7 @@ const RoutePage = () =>{
             const res = await AUTH_SERVICE.postNewUser(username, password);
             if(res){
                 setLoading(false);
+                toast.success('Usuario registrado con éxito');
                 navigate('/loginPage');
             }
         }catch(e){
