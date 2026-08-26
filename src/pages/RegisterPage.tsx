@@ -16,14 +16,12 @@ const RoutePage = () =>{
         try{
             if(!Boolean(username) && !Boolean(password) && !Boolean(confirmPassword)){
                 toast.warning('Debe completar todos los campos');
-                console.error('Debe completar todos los campos');
-                return;
+                throw new Error("Debe completar todos los campos"); 
             }
 
             if(confirmPassword !== password){
                 toast.warning('Las contraseñas no coinciden');
-                console.error('Las contraseñas no coinciden');
-                return;
+                throw new Error("Las contraseñas no coinciden"); 
             }
 
             const res = await AUTH_SERVICE.postNewUser(username, password);
@@ -32,9 +30,9 @@ const RoutePage = () =>{
                 toast.success('Usuario registrado con éxito');
                 navigate('/loginPage');
             }
-        }catch(e){
+        }catch(e: any){
             setLoading(false);
-            console.error('Error during registration:', e);
+            console.error(e.message);
         }
     }
 
