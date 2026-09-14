@@ -64,3 +64,55 @@
 .btnBuyProduct{
   width: 70%;
 }
+
+.accordion-wrapper {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: #ffffff;
+}
+
+.custom-accordion {
+  width: 100%;
+}
+
+.custom-accordion summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 1rem 1.25rem;
+  background: #f8f9fa;
+  font-weight: 700;
+  color: #1b1b1b;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.custom-accordion summary::-webkit-details-marker {
+  display: none;
+}
+
+.accordion-content {
+  padding: 1.25rem;
+  color: #4b5563;
+  line-height: 1.7;
+  background: #ffffff;
+}
+
+.card {
+  border-radius: 20px;
+}
+
+.btn-outline-dark {
+  border-color: #1b1b1b;
+  color: #1b1b1b;
+}
+
+.btn-outline-dark:hover {
+  background: #1b1b1b;
+  border-color: #1b1b1b;
+  color: #ffffff;
+}
+
+.btnReturn:hover{
+  background-color: #E89301 !important;
+}

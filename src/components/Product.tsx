@@ -1,8 +1,14 @@
+import { useNavigate } from "react-router-dom";
 import type { ProductProps } from "../types/ProductType.ts";
 
 function Product({product, image, name, price, description, addToCart, type}:ProductProps) {
+    const navigate = useNavigate();
     const getImageUrl = (type: string, image: string) => {
         return new URL(`/src/assets/img/${type}/${image}.jpg`, import.meta.url).href;
+    };
+
+    const handleImageClick = () => {
+        navigate('/detailPage', { state: { product } });
     };
 
     return(
@@ -12,10 +18,12 @@ function Product({product, image, name, price, description, addToCart, type}:Pro
                 src={getImageUrl(type, image)}
                 alt="imagen laptop"
                 className="card-img-top"
+                onClick={handleImageClick}
                 style={{
                     width: "70%",
                     height: "250px",
-                    objectFit: "contain"
+                    objectFit: "contain",
+                    cursor: "pointer",
                 }}
                 />
 

@@ -1,6 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import LoginPage from './pages/LoginPage.tsx'
 import ShopPage from './pages/ShopPage.tsx'
+import DetailPage from './pages/DetailPage.tsx'
 import './App.css';
 import RoutePage from './pages/RegisterPage.tsx';
 import { AuthProvider } from './context/AuthContext';
@@ -15,6 +16,7 @@ function App() {
           <Route path="/" element={<Navigate to="loginPage" />} />
           <Route path="/loginPage" element={<LoginPage />}></Route>
           <Route path="/shopPage" element={<ShopPage />}></Route>
+          <Route path="/detailPage" element={<DetailPage />}></Route>
           <Route path='/registerPage' element={<RoutePage />}></Route>
         </Routes>
       </CartProvider>
