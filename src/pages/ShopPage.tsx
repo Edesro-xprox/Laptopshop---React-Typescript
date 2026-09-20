@@ -5,7 +5,7 @@ import { useCart } from '../hooks/useCart.ts';
 import '../App.css';
 
 function ShopPage() {
-  const { cart, removeCart, removeFromCart, modifyQuantity, data, addToCart, isEmpty, cartTotal, loadProducts, loading, select, handleSelect }  = useCart();
+  const { cart, removeCart, removeFromCart, modifyQuantity, data, addToCart, addingIds, isEmpty, cartTotal, loadProducts, loadCatalog, select, handleSelect }  = useCart();
 
   return (
     <>
@@ -19,16 +19,19 @@ function ShopPage() {
         loadProducts={loadProducts}
         select={select}
         handleSelect={handleSelect}
+        isVisibleType={true}
+        isVisibleCart={true}
+        isVisibleLogout={true}
       />
       {/* <Navbar/> */}
       <main className="mt-5 main-shop p-2">
         <h2 className="text-center">Nuestra Colección</h2>
         <div className="row">
-          {loading ? (
+          {loadCatalog ? (
             <div className="d-flex justify-content-center text-center mt-5 fs-4">
-            <div className='spin-loading'></div>
-              Cargando productos...
-          </div>
+              <div className='spin-loading'></div>
+                Cargando productos...
+            </div>
           ) :
           data.length == 0 ?
           (<p className="text-center mt-5 fs-4">No hay items disponibles</p>)
@@ -42,6 +45,7 @@ function ShopPage() {
                 description={d.description}
                 product={d}
                 addToCart={addToCart}
+                isAdding={addingIds.includes(d._id)}
                 type={d.type}
               />
             ))

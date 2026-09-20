@@ -1,9 +1,12 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import Accordion from '../components/Accordion.tsx';
-import logoHeader from '../assets/img/nextShop.png';
 import '../App.css';
+import { useCart } from '../hooks/useCart.ts';
+import Header from '../components/Header.tsx';
 
 function DetailPage() {
+  const { cart, removeCart, removeFromCart, modifyQuantity, isEmpty, cartTotal, loadProducts, select, handleSelect }  = useCart();
+  
   const navigate = useNavigate();
   const location = useLocation();
   const product = location.state?.product;
@@ -27,26 +30,20 @@ function DetailPage() {
 
   return (
     <>
-      <header className="header">
-        <div className="container-xl">
-          <div className="row justify-content-center justify-content-md-between align-items-center py-3">
-            <div className="col-8 col-md-3">
-              <img className="img-fluid" src={logoHeader} alt="imagen logo" />
-            </div>
-            <div className="col-md-3 text-md-end mt-3 mt-md-0">
-              <button
-                type="button"
-                className="btn btn-outline-dark px-4 py-2 fw-semibold border-2 bg-[#474747] text-white btnReturn"
-                onClick={() => navigate('/shopPage')}
-
-                style={{ backgroundColor: "#474747" }}
-              >
-                Regresar
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
+      <Header 
+        cart={cart} 
+        removeFromCart={removeFromCart} 
+        modifyQuantity={modifyQuantity} 
+        removeCart={removeCart} 
+        isEmpty={isEmpty} 
+        cartTotal={cartTotal}
+        loadProducts={loadProducts}
+        select={select}
+        handleSelect={handleSelect}
+        isVisibleType={false}
+        isVisibleCart={false}
+        isVisibleLogout={true}
+      />
 
       <main className="d-flex px-5 py-5 w-100" style={{ gap: '6%' }}>
         <div style={{ width: '55%' }}>
@@ -60,8 +57,9 @@ function DetailPage() {
               </div>
             </div>
 
-            <div className="mt-4">
+            <div className="mt-4" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <Accordion title="Descripción del producto" description={product.description} />
+              <Accordion title="Especificaciones" specs={product.specifications} />
             </div>
           </div>
 
@@ -70,6 +68,10 @@ function DetailPage() {
               <h1 className="text-uppercase fw-black fs-3 mb-3" style={{ color: '#1b1b1b' }}>
                 {product.name}
               </h1>
+
+              <p className="fs-5" style={{ marginBottom: '2rem' }}>
+                Vendido por <strong style={{ textDecoration: 'underline' }}>{product.supplier}</strong>
+              </p>
 
               <p className="fw-bold fs-3 mb-4" style={{ color: '#E89301' }}>
                 ${product.price}

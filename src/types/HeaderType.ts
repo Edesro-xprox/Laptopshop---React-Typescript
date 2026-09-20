@@ -10,6 +10,9 @@ interface HeaderProps{
     loadProducts: (type: string) => void;
     select: string;
     handleSelect: (type: string) => void;
+    isVisibleType: boolean;
+    isVisibleCart: boolean;
+    isVisibleLogout: boolean;
 }
 
 export type { HeaderProps }

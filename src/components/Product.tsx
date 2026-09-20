@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import type { ProductProps } from "../types/ProductType.ts";
 
-function Product({product, image, name, price, description, addToCart, type}:ProductProps) {
+function Product({product, image, name, price, description, addToCart, isAdding = false, type}:ProductProps) {
     const navigate = useNavigate();
     const getImageUrl = (type: string, image: string) => {
         return new URL(`/src/assets/img/${type}/${image}.jpg`, import.meta.url).href;
@@ -42,10 +42,19 @@ function Product({product, image, name, price, description, addToCart, type}:Pro
 
                     <button
                         type="button"
-                        className="btn btn-dark mt-auto  btnBuyProduct"
+                        className="btn btn-dark mt-auto btnBuyProduct"
                         onClick={() => addToCart(product)}
+                        disabled={isAdding}
+                        aria-busy={isAdding}
                     >
-                        Agregar al Carrito
+                        {isAdding ? (
+                            <span className="d-flex justify-content-center align-items-center gap-2">
+                                <span className="spin-loading spin-loading-sm" aria-hidden="true" />
+                                Agregando...
+                            </span>
+                        ) : (
+                            'Agregar al Carrito'
+                        )}
                     </button>
                 </div>
             </div>

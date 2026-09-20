@@ -10,7 +10,8 @@ const useCart = () =>{
     const [all, setAll] = useState<ProductType[]>([]);
     const [data, setData] = useState<ProductType[]>([]);
     const [cart, setCart] = useState<CartProductType[]>([]);
-    const [loading, setLoading] = useState<boolean>(false);
+    const [loadCatalog, setLoadCatalog] = useState<boolean>(false);
+    const [addingIds, setAddingIds] = useState<string[]>([]);
     const [select, setSelect] = useState('laptop');
     const { user } = useAuth();
     const { cartId } = useCartInfo();
@@ -25,12 +26,12 @@ const useCart = () =>{
     }
 
     const loadProducts = async (type: string) =>{
-        setLoading(true);
+        setLoadCatalog(true);
         try {
             const res = await PRODUCTS_SERVICE.getProducts(type);
             setData(res.data);
         } finally {
-            setLoading(false);
+            setLoadCatalog(false);
         }
     }
 
@@ -69,38 +70,43 @@ const useCart = () =>{
 
 
     const addToCart = async (product: ProductType) => {
-        if(!cart.some(c => c._id == product._id)){
-            cart.push({...product, quantity: 1});   
-        }else{
-            await modifyQuantity(product._id, 1);
-            return;
+        if (addingIds.includes(product._id)) return;
+        setAddingIds((prev) => [...prev, product._id]);
+        try {
+            if(cart.some(c => c._id == product._id)){
+                await modifyQuantity(product._id, 1);
+                return;
+            }
+            const newCart = [...cart, {...product, quantity: 1}];
+            // Convertir el carrito actual a la estructura CartItemType[]
+            const items: CartItemType[] = newCart.map(c => ({
+                _id: c._id,
+                name: c.name,
+                price: c.price,
+                quantity: c.quantity
+            }));
+
+            // Calcular el total del carrito
+            const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+            // Generar el nuevo id del carrito
+            const carts = await CART_SERVICE.getCart();
+            
+            let cartIdCurrent = null, lastId = null;
+
+            if(carts.data.length > 0 && !Boolean(cartIdCurrent)){
+                lastId = carts.data.map((c: CartType) => c._id).at(-1);
+                cartIdCurrent = `cart_${String(Number(lastId.split('_')[1]) + 1).padStart(3, '0')}`;
+            }else{
+                cartIdCurrent = 'cart_001';
+            }
+
+            const res = await CART_SERVICE.addCart(cartId || cartIdCurrent, user?._id!, items, total);
+            await loadCart();
+            return res;
+        } finally {
+            setAddingIds((prev) => prev.filter((id) => id !== product._id));
         }
-        // Convertir el carrito actual a la estructura CartItemType[]
-        const items: CartItemType[] = cart.map(c => ({
-            _id: c._id,
-            name: c.name,
-            price: c.price,
-            quantity: c.quantity
-        }));
-
-        // Calcular el total del carrito
-        const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-
-        // Generar el nuevo id del carrito
-        const carts = await CART_SERVICE.getCart();
-        
-        let cartIdCurrent = null, lastId = null;
-
-        if(carts.data.length > 0 && !Boolean(cartIdCurrent)){
-            lastId = carts.data.map((c: CartType) => c._id).at(-1);
-            cartIdCurrent = `cart_${String(Number(lastId.split('_')[1]) + 1).padStart(3, '0')}`;
-        }else{
-            cartIdCurrent = 'cart_001';
-        }
-
-        const res = await CART_SERVICE.addCart(cartId || cartIdCurrent, user?._id!, items, total);
-        loadCart();
-        return res;
     }
 
     const removeFromCart = async (id: string) => {
@@ -140,11 +146,12 @@ const useCart = () =>{
         modifyQuantity,
         data,
         addToCart,
+        addingIds,
         setCart,
         isEmpty,
         cartTotal,
         loadProducts,
-        loading,
+        loadCatalog,
         select,
         handleSelect
     }

@@ -13,7 +13,8 @@ interface ProductProps{
     name: string;
     price: number;
     description: string;
-    addToCart: (product: ProductType) => void;
+    addToCart: (product: ProductType) => Promise<unknown>;
+    isAdding?: boolean;
     type: string;
 }
 

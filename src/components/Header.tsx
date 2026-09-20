@@ -9,15 +9,19 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 
-function Header({cart, removeFromCart, modifyQuantity, removeCart, isEmpty, cartTotal, loadProducts, select, handleSelect}: HeaderProps){
+function Header({cart, removeFromCart, modifyQuantity, removeCart, isEmpty, cartTotal, loadProducts, select, handleSelect, isVisibleType, isVisibleCart, isVisibleLogout}: HeaderProps){
     const navigate = useNavigate();
     const { logout } = useAuth();
 
     const handleLogout = () => {
-        logout();
-        localStorage.removeItem('user');
-        localStorage.removeItem('cartId');
-        navigate('/loginPage');
+        if(isVisibleType){
+            logout();
+            localStorage.removeItem('user');
+            localStorage.removeItem('cartId');
+            navigate('/loginPage');
+        }else{
+            navigate('/shopPage');
+        }
     };
     
     const getImageUrl = (type: string, image: string) => {
@@ -36,7 +40,7 @@ function Header({cart, removeFromCart, modifyQuantity, removeCart, isEmpty, cart
                         </div>
                         <nav className="col-md-6 d-flex align-items-center justify-content-end gap-3">
                             <div className="carrito">
-                                <img className="img-fluid" src={carrito} alt="imagen carrito" />
+                                <img className="img-fluid" src={carrito} alt="imagen carrito" style={{ display: isVisibleCart ? 'block' : 'none' }} />
                                 <div id="carrito" className="bg-white p-3">
                                     {isEmpty ? <p className="text-center">El carrito esta vacio</p> : <></>}
                                     <table className="w-100 table">
@@ -91,14 +95,14 @@ function Header({cart, removeFromCart, modifyQuantity, removeCart, isEmpty, cart
                                     </table>
 
                                     {isEmpty ? <></> : <p className="text-end">Total pagar: <span className="fw-bold">${cartTotal}</span></p>}
-                                    <button onClick={() => removeCart()} className="btn btn-dark w-100 mt-3 p-2">Vaciar Carrito</button>
+                                    <button onClick={() => removeCart()} className="btn btn-dark w-100 mt-3 p-2" style={{ display: isVisibleLogout ? 'block' : 'none' }}>Vaciar Carrito</button>
                                 </div>
                             </div>
                             <button
                                 type="button"
                                 onClick={handleLogout}
                                 className="btn btn-warning rounded-pill px-4 py-2 fw-bold shadow-sm border-0 text-white d-flex align-items-center gap-2"
-                                style={{ letterSpacing: '0.5px' }} title='Salir'
+                                style={{ letterSpacing: '0.5px',  }} title='Salir'
                             >
                                 <img src={logoutHeader} style={{ height: '35px', width: '35px' }}></img>
                             </button>
@@ -106,7 +110,7 @@ function Header({cart, removeFromCart, modifyQuantity, removeCart, isEmpty, cart
                     </div>
                 </div>
                 {/* Barra horizontal de categorías como botones */}
-                <div className="header-categories bg-dark py-3">
+                <div className="header-categories bg-dark py-3" style={{ display: isVisibleType ? 'block' : 'none' }}>
                     <div className="container-xl d-flex justify-content-center align-items-center gap-3 flex-wrap text-white">
                         <span className="fw-bold fs-4 me-3" style={{ color: '#E89301' }}>¡Lo mejor en tecnología!</span>
                         <button onClick={() =>{loadProducts('headphone'); handleSelect('headphone');}} className="btn btn-outline-light fs-5 px-4 py-2 fw-semibold border-2" style={{minWidth: '130px', color: select == 'headphone' ? '#E89301' : "white"}}>Audífonos</button>
