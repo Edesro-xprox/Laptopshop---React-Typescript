@@ -10,6 +10,7 @@ function Product({product, image, name, price, description, addToCart, isAdding 
     const handleImageClick = () => {
         navigate('/detailPage', { state: { product } });
     };
+    
 
     return(
         <div className="col-md-6 col-lg-4 my-4 text-center">

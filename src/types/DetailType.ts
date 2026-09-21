@@ -9,4 +9,5 @@ type AccordionProps = {
   specs?: SpecItem[];
 };
 
+
 export type { SpecItem, AccordionProps };
