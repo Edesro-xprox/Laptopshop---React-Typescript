@@ -6,7 +6,7 @@ import { useCart } from '../hooks/useCart.ts';
 import Header from '../components/Header.tsx';
 
 function DetailPage() {
-  const { cart, removeCart, removeFromCart, modifyQuantity, isEmpty, cartTotal, loadProducts, select, handleSelect, addToCart, addingIds }  = useCart();
+  const { cart, removeCart, removeFromCart, modifyQuantity, isEmpty, cartTotal, loadProducts, loadingCart, select, handleSelect, addToCart, addingIds }  = useCart();
   
   const navigate = useNavigate();
   const location = useLocation();
@@ -50,6 +50,7 @@ function DetailPage() {
         isEmpty={isEmpty} 
         cartTotal={cartTotal}
         loadProducts={loadProducts}
+        loadingCart={loadingCart}
         select={select}
         handleSelect={handleSelect}
         isVisibleType={false}
