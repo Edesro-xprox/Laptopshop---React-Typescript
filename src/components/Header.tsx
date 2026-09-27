@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 
-function Header({cart, removeFromCart, modifyQuantity, removeCart, isEmpty, cartTotal, loadProducts, select, handleSelect, isVisibleType, isVisibleCart, isVisibleLogout}: HeaderProps){
+function Header({cart, removeFromCart, modifyQuantity, removeCart, isEmpty, cartTotal, loadProducts, loadingCart, select, handleSelect, isVisibleType, isVisibleCart, isVisibleLogout}: HeaderProps){
     const navigate = useNavigate();
     const { logout } = useAuth();
 
@@ -42,7 +42,12 @@ function Header({cart, removeFromCart, modifyQuantity, removeCart, isEmpty, cart
                             <div className="carrito">
                                 <img className="img-fluid" src={carrito} alt="imagen carrito" style={{ display: isVisibleCart ? 'block' : 'none' }} />
                                 <div id="carrito" className="bg-white p-3">
-                                    {isEmpty ? <p className="text-center">El carrito esta vacio</p> : <></>}
+                                    {loadingCart ? (
+                                        <div className="d-flex justify-content-center text-center mt-5 fs-4">
+                                            <div className='spin-loading'></div>
+                                            Cargando carrito...
+                                        </div>
+                                    ) : isEmpty ? <p className="text-center">El carrito esta vacio</p> : <></>}
                                     <table className="w-100 table">
                                         <thead>
                                             <tr>

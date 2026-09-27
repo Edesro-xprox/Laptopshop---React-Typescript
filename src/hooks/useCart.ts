@@ -11,6 +11,7 @@ const useCart = () =>{
     const [data, setData] = useState<ProductType[]>([]);
     const [cart, setCart] = useState<CartProductType[]>([]);
     const [loadCatalog, setLoadCatalog] = useState<boolean>(false);
+    const [loadingCart, setLoadingCart] = useState<boolean>(false);
     const [addingIds, setAddingIds] = useState<string[]>([]);
     const [select, setSelect] = useState('laptop');
     const { user } = useAuth();
@@ -36,6 +37,7 @@ const useCart = () =>{
     }
 
     const loadCart = async () => {
+        setLoadingCart(true);
         const res = await CART_SERVICE.getCart();
         // res.data debe ser un CartType
         const cartData: CartType = res.data.filter((c: CartType) => c.userId == user?._id)[0];
@@ -55,6 +57,7 @@ const useCart = () =>{
             }
         }).filter((c: CartProductType | null) => c != null) as CartProductType[] || [];
         setCart(cartWithProductData);
+        setLoadingCart(false);
     }
 
     useEffect(() =>{
@@ -152,6 +155,7 @@ const useCart = () =>{
         cartTotal,
         loadProducts,
         loadCatalog,
+        loadingCart,
         select,
         handleSelect
     }

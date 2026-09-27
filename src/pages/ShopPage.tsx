@@ -5,7 +5,7 @@ import { useCart } from '../hooks/useCart.ts';
 import '../App.css';
 
 function ShopPage() {
-  const { cart, removeCart, removeFromCart, modifyQuantity, data, addToCart, addingIds, isEmpty, cartTotal, loadProducts, loadCatalog, select, handleSelect }  = useCart();
+  const { cart, removeCart, removeFromCart, modifyQuantity, data, addToCart, addingIds, isEmpty, cartTotal, loadProducts, loadCatalog, loadingCart, select, handleSelect }  = useCart();
 
   return (
     <>
@@ -17,6 +17,7 @@ function ShopPage() {
         isEmpty={isEmpty} 
         cartTotal={cartTotal}
         loadProducts={loadProducts}
+        loadingCart={loadingCart}
         select={select}
         handleSelect={handleSelect}
         isVisibleType={true}

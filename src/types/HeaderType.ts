@@ -8,6 +8,7 @@ interface HeaderProps{
     isEmpty: boolean;
     cartTotal: number;
     loadProducts: (type: string) => void;
+    loadingCart: boolean;
     select: string;
     handleSelect: (type: string) => void;
     isVisibleType: boolean;
