@@ -47,7 +47,7 @@ function Header({cart, removeFromCart, modifyQuantity, removeCart, isEmpty, cart
                                             <div className='spin-loading'></div>
                                             Cargando carrito...
                                         </div>
-                                    ) : isEmpty ? <p className="text-center">El carrito esta vacio</p> : <></>}
+                                    ) : <></>}
                                     <table className="w-100 table">
                                         <thead>
                                             <tr>
