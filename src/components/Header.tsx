@@ -43,7 +43,7 @@ function Header({cart, removeFromCart, modifyQuantity, removeCart, isEmpty, cart
                                 <img className="img-fluid" src={carrito} alt="imagen carrito" style={{ display: isVisibleCart ? 'block' : 'none' }} />
                                 <div id="carrito" className="bg-white p-3">
                                     {loadingCart ? (
-                                        <div className="d-flex justify-content-center text-center mt-5 fs-5">
+                                        <div className="d-flex justify-content-center text-center fs-5">
                                             <div className='spin-loading'></div>
                                             Cargando carrito...
                                         </div>
