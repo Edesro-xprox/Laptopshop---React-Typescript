@@ -4,6 +4,7 @@ import Accordion from '../components/Accordion.tsx';
 import '../App.css';
 import { useCart } from '../hooks/useCart.ts';
 import Header from '../components/Header.tsx';
+import { getImageUrl } from '../utils/image.ts';
 
 function DetailPage() {
   const { cart, removeCart, removeFromCart, modifyQuantity, isEmpty, cartTotal, loadProducts, loadingCart, select, handleSelect, addToCart, addingIds }  = useCart();
@@ -16,10 +17,6 @@ function DetailPage() {
   const handleSeeMoreSpecs = () => {
     specsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     specsRef.current?.focus({ preventScroll: true });
-  };
-
-  const getImageUrl = (type: string, image: string) => {
-    return new URL(`/src/assets/img/${type}/${image}.jpg`, import.meta.url).href;
   };
 
   if (!product) {

@@ -1,17 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import type { ProductProps } from "../types/ProductType.ts";
+import { getImageUrl } from "../utils/image.ts";
 
 function Product({product, image, name, price, description, addToCart, isAdding = false, type}:ProductProps) {
     const navigate = useNavigate();
-    const getImageUrl = (type: string, image: string) => {
-        return new URL(`/src/assets/img/${type}/${image}.jpg`, import.meta.url).href;
-    };
-
+    
     const handleImageClick = () => {
         navigate('/detailPage', { state: { product } });
     };
     
-
     return(
         <div className="col-md-6 col-lg-4 my-4 text-center">
             <div className="card h-100">
