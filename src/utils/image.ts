@@ -4,5 +4,5 @@ export const getImageUrl = (
   type: string,
   imageName: string
 ) => {
-  return `${BLOB_URL}/${type}/${imageName}.jpg`;
+  return `${BLOB_URL}/${type}/${imageName}`;
 };
