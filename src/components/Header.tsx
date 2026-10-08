@@ -50,10 +50,12 @@ function Header({cart, removeFromCart, modifyQuantity, removeCart, isEmpty, cart
                                         </thead>
                                         <tbody>
                                             {loadingCart ? (
-                                        <div className="d-flex justify-content-center text-center fs-5">
-                                            <div className='spin-loading'></div>
-                                            Cargando carrito...
-                                        </div>
+                                        <tr>
+                                            <td colSpan={4}>
+                                                <div className='spin-loading'></div>
+                                                Cargando carrito...
+                                            </td>
+                                        </tr>
                                     ) : isEmpty ? <p className="text-center">El carrito esta vacio</p> : cart.map((c: any) => {
                                                 return (
                                                     <tr key={c._id}>
