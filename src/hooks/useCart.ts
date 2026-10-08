@@ -11,7 +11,7 @@ const useCart = () =>{
     const [data, setData] = useState<ProductType[]>([]);
     const [cart, setCart] = useState<CartProductType[]>([]);
     const [loadCatalog, setLoadCatalog] = useState<boolean>(false);
-    const [loadingCart, setLoadingCart] = useState<boolean>(false);
+    const [loadingCart, setLoadingCart] = useState<boolean>(true);
     const [addingIds, setAddingIds] = useState<string[]>([]);
     const [select, setSelect] = useState('laptop');
     const { user } = useAuth();
@@ -21,9 +21,10 @@ const useCart = () =>{
         setSelect(type);
     }
 
-    const loadAllProducts = async () =>{
+    const loadAllProducts = async (): Promise<ProductType[]> =>{
         const res = await PRODUCTS_SERVICE.getAllProducts();
         setAll(res.data);
+        return res.data;
     }
 
     const loadProducts = async (type: string) =>{
@@ -36,14 +37,14 @@ const useCart = () =>{
         }
     }
 
-    const loadCart = async () => {
+    const loadCart = async (products: ProductType[] = all) => {
         setLoadingCart(true);
         try{
             const res = await CART_SERVICE.getCart();
             // res.data debe ser un CartType
             const cartData: CartType = res.data.filter((c: CartType) => c.userId == user?._id)[0];
             const cartWithProductData: CartProductType[] = cartData?.items?.map((item: CartItemType) => {
-                const product = all.find(d => d._id === item._id);
+                const product = products.find(d => d._id === item._id);
                 if (product) {
                     return {
                         _id: item._id,
@@ -66,15 +67,19 @@ const useCart = () =>{
     }
 
     useEffect(() =>{
-        loadAllProducts();
-        loadProducts('laptop');
-    },[])
+        const initialize = async () => {
+            try {
+                const products = await loadAllProducts();
+                await loadCart(products);
+            } catch (error) {
+                console.error(error);
+                setLoadingCart(false);
+            }
+        };
 
-    useEffect(() =>{
-        if(data.length > 0){; // Esperar a que los productos se carguen antes de cargar el carrito{
-            loadCart();
-        }
-    },[data])
+        void initialize();
+        void loadProducts('laptop');
+    },[])
 
 
     const addToCart = async (product: ProductType) => {
