@@ -7,7 +7,7 @@ import carrito from '../assets/img/carrito.png';
 import type { HeaderProps } from "../types/HeaderType.ts";
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-
+import { getImageUrl } from "../utils/image.ts";
 
 function Header({cart, removeFromCart, modifyQuantity, removeCart, isEmpty, cartTotal, loadProducts, loadingCart, select, handleSelect, isVisibleType, isVisibleCart, isVisibleLogout}: HeaderProps){
     const navigate = useNavigate();
@@ -24,10 +24,6 @@ function Header({cart, removeFromCart, modifyQuantity, removeCart, isEmpty, cart
         }
     };
     
-    const getImageUrl = (type: string, image: string) => {
-        return new URL(`/src/assets/img/${type}/${image}.jpg`, import.meta.url).href;
-    };
-    
     return (
         <>
             <header className="header">
@@ -42,12 +38,6 @@ function Header({cart, removeFromCart, modifyQuantity, removeCart, isEmpty, cart
                             <div className="carrito">
                                 <img className="img-fluid" src={carrito} alt="imagen carrito" style={{ display: isVisibleCart ? 'block' : 'none' }} />
                                 <div id="carrito" className="bg-white p-3">
-                                    {loadingCart ? (
-                                        <div className="d-flex justify-content-center text-center fs-5">
-                                            <div className='spin-loading'></div>
-                                            Cargando carrito...
-                                        </div>
-                                    ) : isEmpty ? <p className="text-center">El carrito esta vacio</p> : <></>}
                                     <table className="w-100 table">
                                         <thead>
                                             <tr>
@@ -59,7 +49,12 @@ function Header({cart, removeFromCart, modifyQuantity, removeCart, isEmpty, cart
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {cart.map((c: any) => {
+                                            {loadingCart ? (
+                                        <div className="d-flex justify-content-center text-center fs-5">
+                                            <div className='spin-loading'></div>
+                                            Cargando carrito...
+                                        </div>
+                                    ) : isEmpty ? <p className="text-center">El carrito esta vacio</p> : cart.map((c: any) => {
                                                 return (
                                                     <tr key={c._id}>
                                                         <td>
