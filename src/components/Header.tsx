@@ -56,7 +56,7 @@ function Header({cart, removeFromCart, modifyQuantity, removeCart, isEmpty, cart
                                                 Cargando carrito...
                                             </td>
                                         </tr>
-                                    ) : isEmpty ? <p className="text-center">El carrito esta vacio</p> : cart.map((c: any) => {
+                                    ) : isEmpty ? <tr><td colSpan={4} className='text-center'>El carrito esta vacio</td></tr> : cart.map((c: any) => {
                                                 return (
                                                     <tr key={c._id}>
                                                         <td>

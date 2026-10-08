@@ -38,26 +38,31 @@ const useCart = () =>{
 
     const loadCart = async () => {
         setLoadingCart(true);
-        const res = await CART_SERVICE.getCart();
-        // res.data debe ser un CartType
-        const cartData: CartType = res.data.filter((c: CartType) => c.userId == user?._id)[0];
-        const cartWithProductData: CartProductType[] = cartData?.items?.map((item: CartItemType) => {
-            const product = all.find(d => d._id === item._id);
-            if (product) {
-                return {
-                    _id: item._id,
-                    name: item.name,
-                    image: product.image,
-                    type: product.type,
-                    price: item.price,
-                    quantity: item.quantity
-                };
-            } else {
-                return null;
-            }
-        }).filter((c: CartProductType | null) => c != null) as CartProductType[] || [];
-        setCart(cartWithProductData);
-        setLoadingCart(false);
+        try{
+            const res = await CART_SERVICE.getCart();
+            // res.data debe ser un CartType
+            const cartData: CartType = res.data.filter((c: CartType) => c.userId == user?._id)[0];
+            const cartWithProductData: CartProductType[] = cartData?.items?.map((item: CartItemType) => {
+                const product = all.find(d => d._id === item._id);
+                if (product) {
+                    return {
+                        _id: item._id,
+                        name: item.name,
+                        image: product.image,
+                        type: product.type,
+                        price: item.price,
+                        quantity: item.quantity
+                    };
+                } else {
+                    return null;
+                }
+            }).filter((c: CartProductType | null) => c != null) as CartProductType[] || [];
+            setCart(cartWithProductData);
+        }catch(error){
+            console.error(error);
+        }finally{
+            setLoadingCart(false);
+        }
     }
 
     useEffect(() =>{
