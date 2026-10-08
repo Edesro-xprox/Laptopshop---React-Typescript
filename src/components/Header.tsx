@@ -51,7 +51,7 @@ function Header({cart, removeFromCart, modifyQuantity, removeCart, isEmpty, cart
                                         <tbody>
                                             {loadingCart ? (
                                         <tr>
-                                            <td colSpan={4} className='text-center'>
+                                            <td colSpan={4} className='text-center' style={{display: "flex", flexDirection: "row"}}>
                                                 <div className='spin-loading'></div>
                                                 Cargando carrito...
                                             </td>
