@@ -29,6 +29,8 @@ const CART_SERVICE = {
     },
     updateQuantityCart: async (cartId: string, userId: string, id: string, value: number) => {
         // Actualizar cantidad de un item
+        console.log('cartId', cartId)
+        console.log('userId', userId)
         const res = await api.put(CART.updateQuantityCart(id, value), { cartId: cartId, userId: userId });
         return res;
     },

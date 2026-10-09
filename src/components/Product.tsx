@@ -30,12 +30,8 @@ function Product({product, image, name, price, description, addToCart, isAdding 
                         {name}
                     </h3>
 
-                    <p className="flex-grow-1" style={{ height: "40px" }}>
-                        {description}
-                    </p>
-
                     <p className="fw-black text-primary fs-4 mb-3">
-                        {price}
+                        {'S/' + price.toString()}
                     </p>
 
                     <button

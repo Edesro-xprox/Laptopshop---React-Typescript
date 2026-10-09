@@ -4,6 +4,5 @@ export const getImageUrl = (
   type: string,
   imageName: string
 ) => {
-  console.log("BLOB_URL:", `${BLOB_URL}/${type}/${imageName}`);
   return `${BLOB_URL}/${type}/${imageName}`;
 };
