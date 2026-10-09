@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import type { ProductProps } from "../types/ProductType.ts";
 import { getImageUrl } from "../utils/image.ts";
 
-function Product({product, image, name, price, description, addToCart, isAdding = false, type}:ProductProps) {
+function Product({product, image, name, price, addToCart, isAdding = false, type}:ProductProps) {
     const navigate = useNavigate();
     
     const handleImageClick = () => {
